@@ -1,0 +1,8 @@
+router bgp {{ BGP.ASN }}
+{% for neighbor in BGP.peers %}
+  neighbor {{ neighbor["neighbor"] }} remote-as {{ neighbor["peer_asn"] }}
+  neighbor {{ neighbor["neighbor"] }} update-source loopback0
+  neighbor {{ neighbor["neighbor"] }} ebgp-multihop 2
+  address-family ipv4 unicast
+  exit
+{% endfor %}
